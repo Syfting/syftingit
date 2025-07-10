@@ -1,7 +1,7 @@
 import React from "react";
 import Home from "/Users/aira/Documents/startup/syfting/frontend/src/pages/Home.tsx";
 import PasswordPage from "/Users/aira/Documents/startup/syfting/frontend/src/pages/PasswordPage.tsx";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from "./pages/MainLayout";
 
 const ProtectedRoute = ({ authenticated, children }: { authenticated: boolean; children: React.ReactNode }) => {
