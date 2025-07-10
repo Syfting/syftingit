@@ -7,6 +7,8 @@ import FAQ from "./FAQ";
 const MainLayout: React.FC<{ current?: string }> = ({ current }) => {
   const path = useLocation().pathname;
 
+  console.log(current ? "placeholder" : "no placeholder");
+
   const renderPage = () => {
     switch (path) {
       case "/home":
