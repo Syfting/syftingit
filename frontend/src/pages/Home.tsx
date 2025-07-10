@@ -19,8 +19,8 @@ const location = useLocation();
     <div className="bg-deepRed min-h-screen w-screen text-light">
     {/* Logo Images */}
     <div className="flex flex-col items-center pt-8 space-y-4">
-      <img src="/assets/1-mainlogo.png" alt="Main Logo 1" className="h-20 -mb-6" />
-      <img src="/assets/13-logomark.png" alt="Main Logo Mark 1" className="h-20" />
+      <img src="./assets/1-mainlogo.png" alt="Main Logo 1" className="h-20 -mb-6" />
+      <img src="./assets/13-logomark.png" alt="Main Logo Mark 1" className="h-20" />
     </div>
 
     {/* Nav Buttons */}
@@ -40,7 +40,7 @@ const location = useLocation();
     <div className="bg-deepRed text-light">
       <div className="pt-12 flex flex-col items-center space-y-6">
         <img
-          src="/assets/19-badge2.png"
+          src="./assets/19-badge2.png"
           alt="Spinning Logo"
           className="h-40 w-40 animate-spin [animation-duration:10s]"
         />
