@@ -3,6 +3,8 @@ import { useLocation, Link } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
 import FAQ from "./FAQ";
+import Login from "./Login";
+import RegisterPage from "./Register";
 
 const MainLayout: React.FC<{ current?: string }> = ({ current }) => {
   const path = useLocation().pathname;
@@ -17,6 +19,10 @@ const MainLayout: React.FC<{ current?: string }> = ({ current }) => {
         return <About />;
       case "/faq":
         return <FAQ />;
+      case "/login":
+        return <Login />;
+      case "/register":
+        return <RegisterPage />;
       default:
         return <Home />;
     }
@@ -55,6 +61,14 @@ const MainLayout: React.FC<{ current?: string }> = ({ current }) => {
     }`}
   >
     FAQ
+  </Link>
+  <Link
+    to="/login"
+    className={`px-4 py-2 border rounded transition hover:border-deepRed hover:text-darkBlue ${
+      path === "/faq" ? "text-darkBlue border-deepRed" : "text-light border-deepRed"
+    }`}
+  >
+    Login
   </Link>
 </div>
 

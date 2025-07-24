@@ -42,6 +42,22 @@ const App: React.FC = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoute authenticated={authenticated}>
+              <MainLayout current="login" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <ProtectedRoute authenticated={authenticated}>
+              <MainLayout current="register" />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );
