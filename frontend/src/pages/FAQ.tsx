@@ -1,8 +1,8 @@
 import React from "react";
 
 const FAQ: React.FC = () => {
-    return (
-        <div className="bg-deepRed text-light">
+  return (
+    <div className="bg-deepRed text-light">
       <div className="pt-12 flex flex-col items-center space-y-6">
         {/* Bigger & higher image */}
         <img
@@ -14,7 +14,6 @@ const FAQ: React.FC = () => {
       </div>
     </div>
     )
-   
 }
 
 export default FAQ;

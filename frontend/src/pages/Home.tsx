@@ -34,6 +34,9 @@ const location = useLocation();
       <Link to="/faq" className={getLinkClass("/faq")}>
         FAQ
       </Link>
+      <Link to="/login" className={getLinkClass("/login")}>
+        Login
+      </Link>
     </div>
 
     {/* Spinning Image and Text */}
