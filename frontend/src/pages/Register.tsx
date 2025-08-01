@@ -25,7 +25,7 @@ const registerSchema = z.object({
     const onSubmit = async (data: any) => {
       try {
         await axios.post(
-          "https://your-fastapi-backend.com/register",
+          "https://syfting-backend.fly.dev/register",
           {
             email: data.email,
             password: data.password,

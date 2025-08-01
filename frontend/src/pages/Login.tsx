@@ -22,7 +22,7 @@ export default function LoginPage() {
     const onSubmit = async (data: any) => {
       try {
         await axios.post(
-          "https://your-fastapi-backend.com/login",
+          "https://syfting-backend.fly.dev/login",
           data,
           { withCredentials: true } // important for cookies
         );
