@@ -1,4 +1,3 @@
-import React from "react";
 import TopNav from "../components/TopNav";
 import LocationGrid from "../components/LocationGrid";
 import CityTabs from "../components/CityTabs";

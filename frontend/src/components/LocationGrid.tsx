@@ -1,5 +1,3 @@
-import React from "react";
-
 const LocationGrid = () => (
     <div>
         <div className="mt-10 flex items-center justify-end mr-40">

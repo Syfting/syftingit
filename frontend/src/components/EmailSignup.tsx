@@ -1,5 +1,3 @@
-import React from "react";
-
 const EmailSignup = () => (
   <div className="text-center bg-brightRed py-12 px-4">
         <h2 className="text-4xl font-medium mb-4 tracking-widest uppercase">Join the Movement</h2>

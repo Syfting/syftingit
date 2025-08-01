@@ -1,5 +1,3 @@
-import React from "react";
-
 const CityTabs = () => (
 <div className="mt-8 ">
     <h3 className="text-center text-3xl text-deepRed uppercase tracking-widest font-bold mb-2">Location</h3>
