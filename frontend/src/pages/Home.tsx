@@ -1,83 +1,26 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import TopNav from "../components/TopNav";
+import LocationGrid from "../components/LocationGrid";
+import CityTabs from "../components/CityTabs";
+import EmailSignup from "../components/EmailSignup";
+import Footer from "../components/Footer";
 
-// interface HealthResponse {
-//   status: string;
-// }
-
-const Home: React.FC = () => {
-
-const location = useLocation();
-  const path = location.pathname;
-
-  const getLinkClass = (target: string) =>
-    `px-4 py-2 border rounded transition hover:border-deepRed hover:text-darkBlue ${
-      path === target ? "text-darkBlue border-deepRed" : "text-light border-deepRed"
-    }`;
-
+const Home = () => {
   return (
-    <div className="bg-deepRed min-h-screen w-screen text-light">
-    {/* Logo Images */}
-    <div className="flex flex-col items-center pt-8 space-y-4">
-      <img src="./assets/1-mainlogo.png" alt="Main Logo 1" className="h-20 -mb-6" />
-      <img src="./assets/13-logomark.png" alt="Main Logo Mark 1" className="h-20" />
-    </div>
-
-    {/* Nav Buttons */}
-    <div className="flex gap-4 mt-6 justify-center">
-      <Link to="/home" className={getLinkClass("/home")}>
-        Home
-      </Link>
-      <Link to="/about" className={getLinkClass("/about")}>
-        About
-      </Link>
-      <Link to="/faq" className={getLinkClass("/faq")}>
-        FAQ
-      </Link>
-      <Link to="/login" className={getLinkClass("/login")}>
-        Login
-      </Link>
-    </div>
-
-    {/* Spinning Image and Text */}
-    <div className="bg-deepRed text-light">
-      <div className="pt-12 flex flex-col items-center space-y-6">
-        <img
-          src="./assets/19-badge2.png"
-          alt="Spinning Logo"
-          className="h-40 w-40 animate-spin [animation-duration:10s]"
-        />
-        <p className="text-2xl font-semibold">Coming Soon</p>
+    <div className="bg-white min-h-screen w-screen text-light font-sans">
+      
+      <div className="relative w-full h-full overflow-hidden">
+        {/* Background image behind nav */}
+        <img src="/assets/hp-bench-with-tv.png" alt="Bench with TV" className="w-full h-full object-cover" />
+        <div className="absolute top-0 left-0 w-full">
+          <TopNav />
+          <hr className="w-11/12 m-auto h-px bg-light"></hr>
+        </div>
       </div>
+      <CityTabs />
+      <LocationGrid />
+      <EmailSignup />
+      <Footer />
     </div>
-  </div>
-
-    //   const [status, setStatus] = useState<string>("");
-    //   useEffect(() => {
-    //     fetch("http://localhost:8000/health")
-    //       .then((response) => {
-    //         if (!response.ok) {
-    //           throw new Error("Network response was not ok");
-    //         }
-    //         return response.json() as Promise<HealthResponse>;
-    //       })
-    //       .then((data) => {
-    //         setStatus(data.status);
-    //       })
-    //       .catch((error) => {
-    //         console.error("Fetch error:", error);
-    //         setStatus("Error fetching status");
-    //       });
-    //   }, []);
-
-    //   {/* Health Status
-    //   <div className="mt-8 text-center">
-    //     <h1 className="text-3xl font-semibold mb-2">Backend Health Status:</h1>
-    //     <p className={`text-xl ${status === "ok" ? "text-green-300" : "text-red-300"}`}>
-    //       {status || "Checking..."}
-    //     </p>
-    //   </div> */}
-    // </div>
   );
 };
 
