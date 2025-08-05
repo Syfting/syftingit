@@ -21,24 +21,29 @@ const LocationGrid = () => (
                     alt="Sample 1"
                     className="w-full"
                     />
+
                     <h3 className="uppercase text-dark font-bold">Isabelita Bakes</h3>
                     <p className="text-sm text-dark text-left">Cheshire, United Kingdom</p>
                 </div>
                 <div className="flex flex-col items-left mb-4">
+
                     <img
                     src="/assets/discover-2.png"
                     alt="Sample 2"
                     className="w-full"
                     />
+
                     <h3 className="uppercase text-dark font-bold">Its my cakes</h3>
                     <p className="text-sm text-dark text-left">Chicago, Illinois</p>
                 </div>
                 <div className="flex flex-col items-left mb-4">
+
                     <img
                     src="/assets/discover-3.png"
                     alt="Sample 3"
                     className="w-full"
                     />
+
                     <h3 className="uppercase text-dark font-bold">Sample Baker</h3>
                     <p className="text-sm text-dark text-left">New York, NY</p>
                 </div>
@@ -101,6 +106,7 @@ const LocationGrid = () => (
                     />
                     <h3 className="uppercase text-dark font-bold">Sample Baker</h3>
                     <p className="text-sm text-dark text-left">New York, NY</p>
+
                 </div>
             </div>
         </div>

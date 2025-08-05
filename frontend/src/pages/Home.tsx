@@ -7,7 +7,6 @@ import Footer from "../components/Footer";
 const Home = () => {
   return (
     <div className="bg-white min-h-screen max-w-screen text-light font-sans">
-      
       <div className="relative w-full h-full overflow-hidden">
         {/* Background image behind nav */}
         <img src="/assets/hp-bench-with-tv.png" alt="Bench with TV" className="w-full h-full object-cover" />

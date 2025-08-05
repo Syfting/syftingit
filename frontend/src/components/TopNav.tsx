@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 
 const TopNav = () => {
+
     const path = useLocation().pathname;
     const getLinkClass = (target: string) =>
         `transition hover:text-darkBlue ${
@@ -27,6 +28,7 @@ const TopNav = () => {
     //   style={{ backgroundColor: `rgba(255, 255, 255, ${bgOpacity})` }}
     >
         {/* style={{ backgroundColor: `rgba(255, 255, 255, ${bgOpacity})` }} */}
+
       {/* Left Nav */}
       <div className="flex gap-40 flex-1 justify-start">
         <span className={getLinkClass("/home") + " cursor-not-allowed"}>Home</span>
