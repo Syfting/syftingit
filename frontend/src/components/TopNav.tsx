@@ -24,7 +24,7 @@ const TopNav = () => {
 
   return (
     <nav
-      className="sticky top-0 z-50 transition-colors duration-300 flex items-center justify-between ml-4 px-8 py-4 uppercase tracking-wide w-full"
+      className="fixed top-0 z-50 transition-colors duration-300 flex items-center justify-between ml-4 px-8 py-4 uppercase tracking-wide w-full"
     //   style={{ backgroundColor: `rgba(255, 255, 255, ${bgOpacity})` }}
     >
         {/* style={{ backgroundColor: `rgba(255, 255, 255, ${bgOpacity})` }} */}

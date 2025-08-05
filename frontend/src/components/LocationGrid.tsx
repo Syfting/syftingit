@@ -4,7 +4,7 @@ const LocationGrid = () => (
             <input
             type="text"
             placeholder="Search by baker, location, etc..."
-            className="w-1/5 mb-6 px-2 pb-1 border-b border-dark text-dark focus:outline-none"
+            className="w-1/5 mb-6 px-2 pb-1 border-b border-dark text-dark focus:outline-none bg-transparent"
             />
             <button type="button" className="ml-2 text-dark focus:outline-none">
             <span className="material-symbols-outlined mb-6">search</span>
