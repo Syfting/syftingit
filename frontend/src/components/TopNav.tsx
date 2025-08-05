@@ -1,12 +1,12 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const TopNav = () => {
 
-    const path = useLocation().pathname;
-    const getLinkClass = (target: string) =>
-        `transition hover:text-darkBlue ${
-        path === target ? "text-darkBlue font-semibold" : "text-light"
-        }`;
+    // const path = useLocation().pathname;
+    // const getLinkClass = (target: string) =>
+    //     `transition hover:text-darkBlue ${
+    //     path === target ? "text-darkBlue font-semibold" : "text-light"
+    //     }`;
 
     // const [bgOpacity, setBgOpacity] = useState(0);
 
@@ -31,9 +31,9 @@ const TopNav = () => {
 
       {/* Left Nav */}
       <div className="flex gap-40 flex-1 justify-start">
-        <span className={getLinkClass("/home") + " cursor-not-allowed"}>Home</span>
-        <span className={getLinkClass("/explore") + " cursor-not-allowed"}>Explore</span>
-        <span className={getLinkClass("/about") + " cursor-not-allowed"}>About</span>
+        <span className="cursor-not-allowed hover:text-brightRed">Home</span>
+        <span className="cursor-not-allowed hover:text-brightRed">Explore</span>
+        <span className="cursor-not-allowed hover:text-brightRed">About</span>
         {/* <Link to="/home" className={getLinkClass("/home")}>Home</Link>
         <Link to="/explore" className={getLinkClass("/explore")}>Explore</Link>
         <Link to="/about" className={getLinkClass("/about")}>About</Link> */}
@@ -52,8 +52,8 @@ const TopNav = () => {
 
       {/* Right Nav */}
     <div className="flex gap-40 mr-8 flex-1 justify-end">
-        <span className={getLinkClass("/cart") + " cursor-not-allowed"}>Cart</span>
-        <span className={getLinkClass("/login") + " cursor-not-allowed"}>Login</span>
+        <span className="cursor-not-allowed hover:text-brightRed">Cart</span>
+        <span className="cursor-not-allowed hover:text-brightRed">Login</span>
         {/* <Link to="/cart" className={getLinkClass("/cart")}>Cart</Link>
         <Link to="/login" className={getLinkClass("/login")}>Login</Link> */}
     </div>
