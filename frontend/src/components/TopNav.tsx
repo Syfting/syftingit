@@ -32,9 +32,9 @@ const TopNav = () => {
 
       {/* Left Nav */}
       <div className={`flex gap-40 flex-1 justify-start transition-colors duration-300 ${textColorClass}`}>
-        <span className="cursor-not-allowed hover:text-brightRed">Home</span>
+        <Link to="/home" className="hover:text-brightRed cursor-pointer">Home</Link>
         <span className="cursor-not-allowed hover:text-brightRed">Explore</span>
-        <span className="cursor-not-allowed hover:text-brightRed">About</span>
+        <Link to="/about" className="hover:text-brightRed cursor-pointer">About</Link>
         {/* <Link to="/home" className={getLinkClass("/home")}>Home</Link>
         <Link to="/explore" className={getLinkClass("/explore")}>Explore</Link>
         <Link to="/about" className={getLinkClass("/about")}>About</Link> */}
@@ -45,7 +45,6 @@ const TopNav = () => {
         <Link to="/home">
           <img
             src={scrolledEnough ? "/assets/mainlogo-dark.png" : "/assets/mainlogo-light.png"}
-            // src="/assets/mainlogo-light.png"
             alt="Syfting Logo"
             className="h-12 mx-auto transition-all duration-300"
           />
@@ -59,6 +58,9 @@ const TopNav = () => {
         {/* <Link to="/cart" className={getLinkClass("/cart")}>Cart</Link>
         <Link to="/login" className={getLinkClass("/login")}>Login</Link> */}
     </div>
+    <div className="fixed top-20 left-0 w-full">
+          <hr className="w-11/12 m-auto h-px bg-light"></hr>
+        </div>
     </nav>
   );
 };
