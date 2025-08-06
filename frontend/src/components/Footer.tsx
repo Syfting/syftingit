@@ -29,7 +29,11 @@ const Footer = () => (
                 <div className="ml-20">
                     <h3 className="font-semibold mb-2">Follow Us</h3>
                         <ul className="space-y-1">
-                            <li>Instagram</li>
+                            <li>
+                                <a href="https://www.instagram.com/syftingit" target="_blank" rel="noopener noreferrer">
+                                Instagram
+                                </a>
+                            </li>
                             <li>Facebook</li>
                             <li>TikTok</li>
                             <li>LinkedIn</li>

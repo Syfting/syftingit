@@ -6,27 +6,29 @@ interface EmailPopup {
 
 const PopupModal: React.FC<EmailPopup> = ({ onClose }) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center w-full z-50">
+    <div className="fixed inset-0 z-[9999] bg-black bg-opacity-50 flex flex-col justify-center items-center w-full">
 
-      <div className="relative bg-brightRed p-6 shadow-lg max-w-xl w-full">
+      <div className="relative bg-brightRed p-6 shadow-lg w-[63rem] h-1/3 flex items-center">
         <img
           src="/assets/27-badge2.png"
           alt="Cupcake"
-          className="absolute top-4 -left-28 w-56 h-auto rotate-12 pointer-events-none z-20"
-      />
-      {/* todo: replace with image */}
-      <h2 className="text-5xl font-bold mb-4 text-center">you're so</h2>
-      <h2 className="text-5xl font-bold mb-4 text-center">sweet</h2>
+          className="absolute top-4 -left-28 w-[22rem] h-auto rotate-[14deg] pointer-events-none z-20"
+        />
+      <img
+          src="/assets/youre-so-sweet.png"
+          alt="Cupcake"
+          className="h-[20rem] mx-auto"
+        />
       </div>
 
-      <div className="relative bg-light p-6 shadow-lg max-w-xl w-full text-center z-10">
+      <div className="relative bg-light p-6 shadow-lg w-[63rem] h-1/3 text-center">
         <img
           src="/assets/14-badge1.png"
           alt="Cupcake"
-          className="absolute -bottom-20 -right-24 w-48 h-auto -rotate-12 pointer-events-none"
+          className="absolute bottom-[4rem] -right-24 w-[16rem] h-auto -rotate-[18deg] pointer-events-none"
         />
-        <p className="mb-4 text-brightRed font-semibold">Sign up today!</p>
-        <form className="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-xl mx-auto mb-16 mt-8">
+        <p className="mb-4 text-brightRed font-semibold text-[2rem]">Sign up today!</p>
+        <form className="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-xl mx-auto mb-[4rem]">
               <input
                   type="email"
                   placeholder="Your Email"
@@ -40,7 +42,7 @@ const PopupModal: React.FC<EmailPopup> = ({ onClose }) => {
           className="mt-2 px-4 py-2 text-dark outline-none border border-dark rounded-3xl font-semibold"
           onClick={onClose}
         >
-        No thanks...I'm salty
+        I'm playing hard to get
         </button>
       </div>
     </div>

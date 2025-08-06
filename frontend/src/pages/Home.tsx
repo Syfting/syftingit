@@ -4,12 +4,12 @@ import CityTabs from "../components/CityTabs";
 import EmailSignup from "../components/EmailSignup";
 import Footer from "../components/Footer";
 import EmailPopup from "../components/EmailPopup";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 const Home = () => {
   const [showPopup, setShowPopup] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const timer = setTimeout(() => {
       setShowPopup(true);
     }, 5000); // 5 seconds
@@ -19,11 +19,11 @@ const Home = () => {
 
   return (
     <div className="bg-white min-h-screen max-w-screen text-light font-sans">
+      <TopNav />
       <div className="relative w-full h-full overflow-hidden">
         {/* Background image behind nav */}
         <img src="/assets/hp-bench-with-tv.png" alt="Bench with TV" className="w-full h-full object-cover" />
         <div className="fixed top-20 left-0 w-full">
-          <TopNav />
           <hr className="w-11/12 m-auto h-px bg-light"></hr>
         </div>
       </div>
