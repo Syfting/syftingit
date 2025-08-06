@@ -1,8 +1,12 @@
 const EmailSignup = () => (
     <div className="flex flex-col md:flex-row">
-        <div className="w-full md:w-1/2 text-center bg-brightRed py-12 px-4">
-            <h2 className="text-4xl font-medium mb-4 tracking-widest uppercase">Join the Movement</h2>
-            <form className="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-xl mx-auto">
+        <div className="w-full md:w-1/2 text-center bg-brightRed px-4 pb-[4rem]">
+            <img
+                src="/assets/join-the-movement.png"
+                alt="Syfting pennant"
+                className=" bg-brightRed h-auto"
+            />
+            <form className="flex flex-col sm:flex-row justify-left items-center gap-4 mx-auto w-[40rem]">
             <input
                 type="email"
                 placeholder="Your Email"
@@ -17,7 +21,7 @@ const EmailSignup = () => (
             <img
             src="/assets/pennant-deep-red.png"
             alt="Syfting pennant"
-            className=" bg-brightRed max-w-md h-auto mt-10"
+            className=" bg-brightRed w-[37rem] h-auto mt-10"
             />
         </div>
     </div>

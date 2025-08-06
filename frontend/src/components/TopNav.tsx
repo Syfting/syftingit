@@ -1,36 +1,37 @@
 import { Link } from "react-router-dom";
+import { useLayoutEffect, useState } from "react";
 
 const TopNav = () => {
+  const [scrollY, setScrollY] = useState(0);
 
-    // const path = useLocation().pathname;
-    // const getLinkClass = (target: string) =>
-    //     `transition hover:text-darkBlue ${
-    //     path === target ? "text-darkBlue font-semibold" : "text-light"
-    //     }`;
+  useLayoutEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
 
-    // const [bgOpacity, setBgOpacity] = useState(0);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    // useEffect(() => {
-    //     const onScroll = () => {
-    //     const scrollTop = window.scrollY;
-    //     const opacity = Math.min(scrollTop / 200, 1);
-    //     setBgOpacity(opacity);
-    //     };
+  const maxScroll = 300;
 
-    //     window.addEventListener("scroll", onScroll);
-    //     return () => window.removeEventListener("scroll", onScroll);
-    // }, []);
+  const opacity = Math.min(scrollY / maxScroll, 0.95);
+  const scrolledEnough = scrollY > 70;
 
+  const textColorClass = scrolledEnough ? "text-dark" : "text-light";
 
   return (
     <nav
-      className="sticky top-0 z-50 transition-colors duration-300 flex items-center justify-between ml-4 px-8 py-4 uppercase tracking-wide w-full"
-    //   style={{ backgroundColor: `rgba(255, 255, 255, ${bgOpacity})` }}
+      style={{
+        backgroundColor: `rgba(255, 255, 255, ${opacity})`,
+        // backdropFilter: "blur(8px)",
+      }}
+      className="fixed top-0 z-50 transition-all duration-300 flex items-center justify-between px-8 py-4 uppercase tracking-wide w-full"
     >
-        {/* style={{ backgroundColor: `rgba(255, 255, 255, ${bgOpacity})` }} */}
 
       {/* Left Nav */}
-      <div className="flex gap-40 flex-1 justify-start">
+      <div className={`flex gap-40 flex-1 justify-start transition-colors duration-300 ${textColorClass}`}>
         <span className="cursor-not-allowed hover:text-brightRed">Home</span>
         <span className="cursor-not-allowed hover:text-brightRed">Explore</span>
         <span className="cursor-not-allowed hover:text-brightRed">About</span>
@@ -43,15 +44,16 @@ const TopNav = () => {
       <div className="flex-shrink-0">
         <Link to="/home">
           <img
-            src="/assets/mainlogo-light.png"
+            src={scrolledEnough ? "/assets/mainlogo-dark.png" : "/assets/mainlogo-light.png"}
+            // src="/assets/mainlogo-light.png"
             alt="Syfting Logo"
-            className="h-12 mx-auto"
+            className="h-12 mx-auto transition-all duration-300"
           />
         </Link>
       </div>
 
       {/* Right Nav */}
-    <div className="flex gap-40 mr-8 flex-1 justify-end">
+    <div className={`flex gap-40 mr-8 flex-1 justify-end transition-colors duration-300 ${textColorClass}`}>
         <span className="cursor-not-allowed hover:text-brightRed">Cart</span>
         <span className="cursor-not-allowed hover:text-brightRed">Login</span>
         {/* <Link to="/cart" className={getLinkClass("/cart")}>Cart</Link>
