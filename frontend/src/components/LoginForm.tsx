@@ -36,7 +36,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         <div className="w-1/2">
             <img
             src="/assets/login-girl-with-cake.jpg"
-            alt="Sample 1"
+            alt="girl with cake"
             className="w-full"
             />
         </div>

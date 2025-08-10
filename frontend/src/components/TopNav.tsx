@@ -73,7 +73,7 @@ const TopNav = () => {
             <div>
               <button
                 onClick={() => setShowLogin(false)}
-                className="absolute top-2 right-2 text-light text-xl"
+                className="absolute top-2 right-4 text-deepRed text-xl"
               >
                 ✕
               </button>
