@@ -21,11 +21,7 @@ const Home = () => {
     <div className="bg-white min-h-screen max-w-screen text-light font-sans">
       <TopNav />
       <div className="relative w-full h-full overflow-hidden">
-        {/* Background image behind nav */}
         <img src="/assets/hp-bench-with-tv.png" alt="Bench with TV" className="w-full h-full object-cover" />
-        <div className="fixed top-20 left-0 w-full">
-          <hr className="w-11/12 m-auto h-px bg-light"></hr>
-        </div>
       </div>
       <CityTabs />
       <LocationGrid />

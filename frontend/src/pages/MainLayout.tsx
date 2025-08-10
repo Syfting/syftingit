@@ -29,49 +29,7 @@ const MainLayout: React.FC<{ current?: string }> = ({ current }) => {
   };
 
   return (
-    <div className="bg-white min-h-screen w-screen text-dark">
-      {/* Logo Images */}
-      <div className="flex flex-col items-center pt-8 space-y-4">
-        <img src="./assets/mainlogo-light.png" alt="Main Logo 1" className="h-20 -mb-6" />
-        <img src="./assets/logomark-light.png" alt="Main Logo Mark 1" className="h-20" />
-      </div>
-
-      {/* Nav Buttons */}
-      <div className="flex gap-4 mt-6 justify-center">
-  <Link
-    to="/home"
-    className={`px-4 py-2 border rounded transition hover:border-deepRed hover:text-darkBlue ${
-      path === "/home" ? "text-darkBlue border-deepRed" : "text-light border-deepRed"
-    }`}
-  >
-    Home
-  </Link>
-  <Link
-    to="/about"
-    className={`px-4 py-2 border rounded transition hover:border-deepRed hover:text-darkBlue ${
-      path === "/about" ? "text-darkBlue border-deepRed" : "text-light border-deepRed"
-    }`}
-  >
-    About
-  </Link>
-  <Link
-    to="/faq"
-    className={`px-4 py-2 border rounded transition hover:border-deepRed hover:text-darkBlue ${
-      path === "/faq" ? "text-darkBlue border-deepRed" : "text-light border-deepRed"
-    }`}
-  >
-    FAQ
-  </Link>
-  <Link
-    to="/login"
-    className={`px-4 py-2 border rounded transition hover:border-deepRed hover:text-darkBlue ${
-      path === "/faq" ? "text-darkBlue border-deepRed" : "text-light border-deepRed"
-    }`}
-  >
-    Login
-  </Link>
-</div>
-
+    <div className="bg-white min-h-screen max-w-screen text-light font-sans">
       {/* Page Content */}
       <div>{renderPage()}</div>
     </div>
