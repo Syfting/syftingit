@@ -137,11 +137,19 @@ const About = () => {
         />
       </div>
 
-      {/* <div className="bg-light w-full h-[32rem] flex justify-center items-center">
+      <div className="bg-beige w-full h-[32rem] flex justify-center items-center">
         <div className="text-3xl font-bold mb-4 text-dark text-center">OUR VALUES
           <hr className="border-dark mb-6 w-[12rem] m-auto" />
         </div>
-      </div> */}
+      </div>
+
+      <div>
+        <img
+          src="/assets/about-values-card.jpg"
+          alt="Cupcake"
+          className="w-full h-auto"
+        />
+      </div>
 
       <EmailSignup />
       <Footer />
