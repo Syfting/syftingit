@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
 import FAQ from "./FAQ";
