@@ -115,35 +115,43 @@ const About = () => {
         </div>
       </div>
 
-      <div className="bg-brightRed w-full h-[36rem] flex justify-center items-center">
-        <div className="text-dark text-[1.6rem] w-[50rem] pr-[6rem] py-[3rem] text-left font-semibold leading-snug">
-          Syfting exists to make meaningful
-          celebrations easier, more personal, and
-          more delicious, by connecting people with
-          local bakers who care. We believe in
-          honoring tradition, uplifting local talent,
-          and supporting small businesses through
-          joyful, shared experiences. Whether it’s a
-          birthday, baby shower, or just because, it
-          deserves better than a last-minute grocery
-          store cake. We're here to help people find
-          desserts that feel special and support the
-          hands that made them.
+      <div className="bg-brightRed w-full min-h-[34rem] flex justify-center items-center">
+        <div className="flex items-center justify-center gap-12">
+          <div className="text-dark text-[1.6rem] w-[50rem] text-left font-semibold">
+            Syfting exists to make meaningful
+            celebrations easier, more personal, and
+            more delicious, by connecting people with
+            local bakers who care. We believe in
+            honoring tradition, uplifting local talent,
+            and supporting small businesses through
+            joyful, shared experiences. Whether it’s a
+            birthday, baby shower, or just because, it
+            deserves better than a last-minute grocery
+            store cake. We're here to help people find
+            desserts that feel special and support the
+            hands that made them.
+          </div>
+          <img
+            src="/assets/31-badge3.png"
+            alt="Cupcake"
+            className="w-[24rem] rotate-[16deg] h-auto"
+          />
         </div>
+      </div>
+
+      <div className="relative bg-beige w-full h-[64rem] flex flex-col items-center overflow-hidden">
+        <div className="text-[3rem] font-bold mt-[4rem] text-dark text-center z-30">OUR VALUES
+        </div>
+        
         <img
-          src="/assets/31-badge3.png"
-          alt="Cupcake"
-          className="w-[24rem] rotate-[16deg] h-auto"
+          src="/assets/about-scalloped-background-with-images.png"
+          alt="Our Values"
+          className="absolute bottom-0 left-0 w-full object-cover z-20"
         />
+        
       </div>
 
-      <div className="bg-beige w-full h-[32rem] flex justify-center items-center">
-        <div className="text-3xl font-bold mb-4 text-dark text-center">OUR VALUES
-          <hr className="border-dark mb-6 w-[12rem] m-auto" />
-        </div>
-      </div>
-
-      <div>
+      <div className="-mt-[11rem] relative z-10">
         <img
           src="/assets/about-values-card.jpg"
           alt="Cupcake"
