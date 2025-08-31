@@ -10,18 +10,29 @@ const Home = () => {
   const [showPopup, setShowPopup] = useState(false);
 
   useLayoutEffect(() => {
-    const timer = setTimeout(() => {
-      setShowPopup(true);
-    }, 5000); // 5 seconds
+    const cameFromOutside = !document.referrer.includes("syfting");
 
-    return () => clearTimeout(timer); // cleanup if component unmounts
+    const popupShown = sessionStorage.getItem("homepagePopupShown");
+
+    if (cameFromOutside && !popupShown) {
+      const timer = setTimeout(() => {
+        setShowPopup(true);
+        sessionStorage.setItem("homepagePopupShown", "true"); // mark as shown
+      }, 5000); // 5 seconds
+
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   return (
     <div className="bg-white min-h-screen max-w-screen text-light font-sans">
       <TopNav />
       <div className="relative w-full h-full overflow-hidden">
-        <img src="/assets/hp-bench-with-tv.png" alt="Bench with TV" className="w-full h-full object-cover" />
+        <img
+          src="/assets/hp-bench-with-tv.png"
+          alt="Bench with TV"
+          className="w-full h-full object-cover"
+        />
       </div>
       <CityTabs />
       <LocationGrid />
