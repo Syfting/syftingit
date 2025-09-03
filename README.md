@@ -14,5 +14,6 @@
 2. Open terminal and `cd frontend`
 3. Run `yarn dev` to open on UI `http://localhost:5173/`
 4. In new shell window, `cd backend`
-5. Activate virtual environment: `source venv/bin/activate`
-6. `cd app` and run `uvicorn main:app --reload --port 8000`
+5. Run db: `brew services start postgresql`
+6. In new shell window, activate virtual environment: `source venv/bin/activate`
+7. Run `uvicorn app.main:app --reload --port 8000`
