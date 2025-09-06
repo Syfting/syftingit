@@ -3,7 +3,6 @@ import TopNav from "../components/TopNav";
 import axios from "axios";
 import EmailSignup from "../components/EmailSignup";
 import Footer from "../components/Footer";
-import { useEffect } from "react";
 
 const AccountSettingsPage: React.FC = () => {
     const [first_name, setFirstName] = React.useState("");
@@ -16,25 +15,6 @@ const AccountSettingsPage: React.FC = () => {
     const [zip_code, setZipCode] = React.useState("");
     const [loading, setLoading] = React.useState(false);
     const [message, setMessage] = React.useState("");
-    const [user, setUser] = React.useState(true);
-
-    useEffect(() => {
-        const fetchUser = async () => {
-          try {
-            const API_URL = import.meta.env.VITE_API_URL;
-            const res = await axios.get(`${API_URL}/auth/me`, { withCredentials: true });
-            setUser(res.data);
-            console.log(res.data);
-          } catch (err) {
-            console.error("Not logged in or error fetching user:", err);
-          } finally {
-            setLoading(false);
-          }
-        };
-    
-        fetchUser();
-      }, []);
-
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

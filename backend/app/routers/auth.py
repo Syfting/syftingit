@@ -21,22 +21,25 @@ router = APIRouter()
 #     return {"message": f"Welcome back, {db_user.first_name}!", "email": db_user.email}
 
 @router.post("/login")
-def login(email: str, password: str, response: Response, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.email == email).first()
-    if not user or not verify_password(password, user.password):
+def login(request: UserLogin, response: Response, db: Session = Depends(get_db)):
+    # Find user
+    user = db.query(User).filter(User.email == request.email).first()
+    if not user or not verify_password(request.password, user.password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
-    
+
+    # Generate token
     token = create_access_token({"sub": user.email})
-    
+
     # Set HttpOnly cookie
     response.set_cookie(
         key="access_token",
         value=token,
         httponly=True,
-        secure=True,  # only send over HTTPS
-        samesite="lax",  # or 'strict'
-        max_age=60*60*24  # 1 day
+        secure=False,   # ⚠️ set True in production
+        samesite="lax",
+        max_age=60 * 60 * 24
     )
+
     return {"message": "Logged in successfully"}
 
 @router.post("/register")
