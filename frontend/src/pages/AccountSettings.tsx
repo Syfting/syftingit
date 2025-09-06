@@ -3,21 +3,47 @@ import TopNav from "../components/TopNav";
 import axios from "axios";
 import EmailSignup from "../components/EmailSignup";
 import Footer from "../components/Footer";
+import { useEffect } from "react";
 
 const AccountSettingsPage: React.FC = () => {
-    const [username, setUsername] = React.useState("");
+    const [first_name, setFirstName] = React.useState("");
+    const [last_name, setLastName] = React.useState("");
     const [email, setEmail] = React.useState("");
+    const [phone_number, setPhoneNumber] = React.useState("");
+    const [address, setAddress] = React.useState("");
+    const [address2, setAdress2] = React.useState("");
+    const [state, setState] = React.useState("");
+    const [zip_code, setZipCode] = React.useState("");
     const [loading, setLoading] = React.useState(false);
     const [message, setMessage] = React.useState("");
+    const [user, setUser] = React.useState(true);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setMessage("");
+    useEffect(() => {
+        const fetchUser = async () => {
+          try {
+            const API_URL = import.meta.env.VITE_API_URL;
+            const res = await axios.get(`${API_URL}/auth/me`, { withCredentials: true });
+            setUser(res.data);
+            console.log(res.data);
+          } catch (err) {
+            console.error("Not logged in or error fetching user:", err);
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchUser();
+      }, []);
+
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        setMessage("");
 
     try {
       // TODO replace with endpoint
-      await axios.post("/api/account/update", { username, email });
+      await axios.post("/api/account/update", { email });
       setMessage("Account updated successfully!");
     } catch (err) {
       console.error(err);
@@ -26,6 +52,7 @@ const AccountSettingsPage: React.FC = () => {
       setLoading(false);
     }
   };
+  
   return (
     <div className="bg-white min-h-screen max-w-screen font-sans">
         <TopNav />
@@ -68,32 +95,124 @@ const AccountSettingsPage: React.FC = () => {
                 <h1 className="text-[2.5rem] font-bold mb-4 text-dark">PROFILE</h1>
                 <div className="border border-dark rounded-[1rem] p-6 bg-white">
                     <form onSubmit={handleSubmit} className="space-y-4">
-                        <div>
-                            <label className="block text-dark mb-1" htmlFor="username">
+                        <div className="flex gap-[1rem]">
+                            <div className="flex-1 flex flex-col">
+                                <label className="text-dark mb-1" htmlFor="first_name">
                                 FIRST NAME
-                            </label>
-                            <input
-                                type="text"
-                                id="username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                placeholder="First Name"
-                                className="w-[50%] rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
-                            />
+                                </label>
+                                <input
+                                    type="text"
+                                    id="first_name"
+                                    value={first_name}
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                    placeholder="First Name"
+                                    className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
+                                />
+                            </div>
+                            
+                            <div className="flex-1 flex flex-col">
+                                <label className="flex text-dark mb-1" htmlFor="last_name">
+                                    LAST NAME
+                                </label>
+                                <input
+                                    type="text"
+                                    id="last_name"
+                                    value={last_name}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                    placeholder="Last Name"
+                                    className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
+                                />
+                            </div>
                         </div>
 
-                        <div>
-                            <label className="block text-dark mb-1" htmlFor="email">
-                                Email
-                            </label>
-                            <input
-                                type="email"
-                                id="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder="Enter email"
-                                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
+                        <div className="flex gap-[1rem]">
+                            <div className="flex-1 flex flex-col">
+                                <label className="text-dark mb-1" htmlFor="email">
+                                EMAIL
+                                </label>
+                                <input
+                                    type="text"
+                                    id="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Email"
+                                    className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
+                                />
+                            </div>
+                            
+                            <div className="flex-1 flex flex-col">
+                                <label className="flex text-dark mb-1" htmlFor="phone_number">
+                                    PHONE NUMBER
+                                </label>
+                                <input
+                                    type="number"
+                                    id="phone_number"
+                                    value={phone_number}
+                                    onChange={(e) => setPhoneNumber(e.target.value)}
+                                    placeholder="Phone Number"
+                                    className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex gap-[1rem]">
+                            <div className="flex-1 flex flex-col">
+                                <label className="text-dark mb-1" htmlFor="address">
+                                ADDRESS
+                                </label>
+                                <input
+                                    type="text"
+                                    id="address"
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
+                                    placeholder="123 Main Street"
+                                    className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
+                                />
+                            </div>
+                            
+                            <div className="flex-1 flex flex-col">
+                                <label className="flex text-dark mb-1" htmlFor="address2">
+                                    Address 2
+                                </label>
+                                <input
+                                    type="text"
+                                    id="address2"
+                                    value={address2}
+                                    onChange={(e) => setAdress2(e.target.value)}
+                                    placeholder="Apt, Suite, etc. (optional)"
+                                    className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex gap-[1rem]">
+                            <div className="flex-1 flex flex-col">
+                                <label className="text-dark mb-1" htmlFor="state">
+                                STATE
+                                </label>
+                                <input
+                                    type="dropdown"
+                                    id="state"
+                                    value={state}
+                                    onChange={(e) => setState(e.target.value)}
+                                    placeholder="State"
+                                    className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
+                                />
+                            </div>
+                            
+                            <div className="flex-1 flex flex-col">
+                                <label className="flex text-dark mb-1" htmlFor="zip_code">
+                                    ZIPCODE
+                                </label>
+                                <input
+                                    type="number"
+                                    id="zip_code"
+                                    value={zip_code}
+                                    onChange={(e) => setZipCode(e.target.value)}
+                                    placeholder="12345"
+                                    className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
+                                />
+                            </div>
                         </div>
 
                         <button
