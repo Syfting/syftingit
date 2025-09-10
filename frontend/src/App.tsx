@@ -3,6 +3,7 @@ import Home from "./pages/Home.tsx";
 import PasswordPage from "./pages/PasswordPage.tsx";
 import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from "./pages/MainLayout";
+import AccountSettingsPage from "./pages/AccountSettings.tsx";
 
 const ProtectedRoute = ({ authenticated, children }: { authenticated: boolean; children: React.ReactNode }) => {
   return authenticated ? <>{children}</> : <Navigate to="/" replace />;
@@ -58,6 +59,14 @@ const App: React.FC = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute authenticated={authenticated}>
+              <AccountSettingsPage />
+    </ProtectedRoute>
+  }
+/>
       </Routes>
     </Router>
   );

@@ -18,9 +18,9 @@ const MainLayout: React.FC<{ current?: string }> = ({ current }) => {
       case "/about":
         return <About />;
       case "/faq":
-        return <FAQ />;
+        return <FAQ />; 
       case "/login":
-        return <Login />;
+        return <Login />; 
       case "/register":
         return <RegisterPage />;
       default:

@@ -3,7 +3,6 @@ import { useForm, type SubmitHandler, type FieldValues, type Path } from "react-
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import axios from "axios";
-import { FcGoogle } from "react-icons/fc";
 
 // ---------------- Schemas ----------------
 const loginSchema = z.object({
@@ -12,7 +11,8 @@ const loginSchema = z.object({
 });
 
 const signupSchema = z.object({
-  name: z.string().min(2, "Name is required"),
+  first_name: z.string().min(2, "First Name is required"),
+  last_name: z.string().min(2, "Last Name is required"),
   email: z.string().email("Invalid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
@@ -41,9 +41,10 @@ function DynamicForm<T extends FieldValues>({
   fields,
   mode,
   onSuccess,
-}: DynamicFormProps<T>) {
+  }: DynamicFormProps<T>) {
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -59,9 +60,9 @@ function DynamicForm<T extends FieldValues>({
     try {
       const API_URL = import.meta.env.VITE_API_URL;
       if (mode === "login") {
-        await axios.post(`${API_URL}/login`, data, { withCredentials: true });
+        await axios.post(`${API_URL}/auth/login`, data, { withCredentials: true });
       } else {
-        await axios.post(`${API_URL}/register`, data, {
+        await axios.post(`${API_URL}/auth/register`, data, {
           headers: { "Content-Type": "application/json" },
         });
       }
@@ -86,11 +87,22 @@ function DynamicForm<T extends FieldValues>({
           <label className="block font-semibold tracking-wider text-sm pb-[0.5rem]">
             {field.label}
           </label>
-          <input
-            {...register(field.name as Path<T>)}
-            type={field.type}
-            className="w-full rounded-full border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
-          />
+          <div className="flex items-center mb-4">
+            <input
+              {...register(field.name as Path<T>)}
+              type={field.type === "password" && showPassword ? "text" : field.type}
+              className="w-full rounded-full border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
+            />
+            {field.type === "password" && (
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="ml-2 px-3 py-2 bg-deepRed text-white rounded-full text-sm font-semibold"
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            )}
+          </div>
           {errors[field.name]?.message && (
             <p className="text-brightRed text-xs mt-1">
               {errors[field.name]?.message?.toString()}
@@ -122,14 +134,14 @@ function DynamicForm<T extends FieldValues>({
       </div>
 
       {/* Divider */}
-      <div className="flex items-center text-deepRed text-sm font-medium my-4">
+      {/* <div className="flex items-center text-deepRed text-sm font-medium my-4">
         <div className="flex-grow border-t border-deepRed"></div>
         <div className="px-3 whitespace-nowrap">Or Continue With</div>
         <div className="flex-grow border-t border-deepRed"></div>
-      </div>
+      </div> */}
 
       {/* Social Buttons */}
-      <div className="flex gap-4 justify-center">
+      {/* <div className="flex gap-4 justify-center">
         <button
           type="button"
           onClick={() => alert("Google login clicked")}
@@ -149,7 +161,7 @@ function DynamicForm<T extends FieldValues>({
           />
           Facebook
         </button>
-      </div>
+      </div> */}
     </form>
   );
 }
@@ -158,15 +170,14 @@ function DynamicForm<T extends FieldValues>({
 export default function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
   const [mode, setMode] = useState<"login" | "signup">("login");
 
-  // Login fields
   const loginFields: Field<LoginFormInputs>[] = [
     { name: "email", label: "Email", type: "email" },
     { name: "password", label: "Password", type: "password" },
   ];
 
-  // Signup fields include Name + Login fields
   const signupFields: Field<SignupFormInputs>[] = [
-    { name: "name", label: "Name", type: "text" },
+    { name: "first_name", label: "First Name", type: "text" },
+    { name: "last_name", label: "Last Name", type: "text" },
     ...loginFields,
   ];
 
