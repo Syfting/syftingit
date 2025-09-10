@@ -36,11 +36,23 @@ const TopNav = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-    setShowDropdown(false);
-    navigate("/home");
+  const handleLogout = async () => {
+    try {
+      const API_URL = import.meta.env.VITE_API_URL;
+      const res = await fetch(`${API_URL}/auth/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+      console.log("Logout response status:", res.status);
+    } catch (err) {
+      console.error("Logout failed", err);
+    } finally {
+      console.log("Clearing local token");
+      localStorage.removeItem("token");
+      setIsLoggedIn(false);
+      setShowDropdown(false);
+      navigate("/home");
+    }
   };
 
   const maxScroll = 300;

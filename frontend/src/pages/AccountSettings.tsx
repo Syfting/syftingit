@@ -3,16 +3,29 @@ import TopNav from "../components/TopNav";
 import axios from "axios";
 import EmailSignup from "../components/EmailSignup";
 import Footer from "../components/Footer";
+import { useEffect } from "react";
+import { useUser } from "../contexts/UserContext";
 
 const AccountSettingsPage: React.FC = () => {
-    const [first_name, setFirstName] = React.useState("");
-    const [last_name, setLastName] = React.useState("");
-    const [email, setEmail] = React.useState("");
-    const [phone_number, setPhoneNumber] = React.useState("");
-    const [address, setAddress] = React.useState("");
-    const [address2, setAdress2] = React.useState("");
-    const [state, setState] = React.useState("");
-    const [zip_code, setZipCode] = React.useState("");
+    const { currentUserData, setCurrentUserData } = useUser();
+    // const [first_name, setFirstName] = React.useState("");
+    // const [last_name, setLastName] = React.useState("");
+    // const [email, setEmail] = React.useState("");
+    // const [phone_number, setPhoneNumber] = React.useState("");
+    // const [address, setAddress] = React.useState("");
+    // const [address2, setAdress2] = React.useState("");
+    // const [state, setState] = React.useState("");
+    // const [zip_code, setZipCode] = React.useState("");
+    const [formData, setFormData] = React.useState({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone_number: "",
+        address: "",
+        address2: "",
+        state: "",
+        zip_code: "",
+      });
     const [loading, setLoading] = React.useState(false);
     const [message, setMessage] = React.useState("");
 
@@ -22,16 +35,58 @@ const AccountSettingsPage: React.FC = () => {
         setMessage("");
 
     try {
-      // TODO replace with endpoint
-      await axios.post("/api/account/update", { email });
-      setMessage("Account updated successfully!");
-    } catch (err) {
-      console.error(err);
-      setMessage("Error updating account");
-    } finally {
-      setLoading(false);
-    }
-  };
+        // TODO replace with endpoint
+        await axios.post("/api/account/update", { formData });
+        setMessage("Account updated successfully!");
+        } catch (err) {
+        console.error(err);
+        setMessage("Error updating account");
+        } finally {
+        setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        const getUser = async () => {
+          const API_URL = import.meta.env.VITE_API_URL;
+          try {
+            const res = await axios.get(`${API_URL}/auth/me`, { withCredentials: true });
+            setCurrentUserData(res.data);
+          } catch (err) {
+            console.error("Failed to fetch current user:", err);
+            setCurrentUserData(null);
+          }
+        };
+        getUser();
+      }, [setCurrentUserData]);
+    
+      useEffect(() => {
+        if (currentUserData) {
+            setFormData({
+                first_name: currentUserData.first_name || "",
+                last_name: currentUserData.last_name || "",
+                email: currentUserData.email || "",
+                phone_number: currentUserData.phone_number || "",
+                address: currentUserData.address || "",
+                address2: currentUserData.address2 || "",
+                state: currentUserData.state || "",
+                zip_code: currentUserData.zip_code || "",
+            })
+        //   setFirstName(currentUserData.first_name);
+        } else {
+            setFormData({
+                first_name: "",
+                last_name: "",
+                email: "",
+                phone_number: "",
+                address: "",
+                address2: "",
+                state: "",
+                zip_code: "",
+            })
+        //   setFirstName("");
+        }
+      }, [currentUserData]);
   
   return (
     <div className="bg-white min-h-screen max-w-screen font-sans">
@@ -83,8 +138,8 @@ const AccountSettingsPage: React.FC = () => {
                                 <input
                                     type="text"
                                     id="first_name"
-                                    value={first_name}
-                                    onChange={(e) => setFirstName(e.target.value)}
+                                    value={formData.first_name}
+                                    onChange={(e) => setFormData({ ...formData, first_name: e.target.value})}
                                     placeholder="First Name"
                                     className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
                                 />
@@ -97,8 +152,8 @@ const AccountSettingsPage: React.FC = () => {
                                 <input
                                     type="text"
                                     id="last_name"
-                                    value={last_name}
-                                    onChange={(e) => setLastName(e.target.value)}
+                                    value={formData.last_name}
+                                    onChange={(e) => setFormData({ ...formData, last_name: e.target.value})}
                                     placeholder="Last Name"
                                     className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
                                 />
@@ -113,8 +168,8 @@ const AccountSettingsPage: React.FC = () => {
                                 <input
                                     type="text"
                                     id="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value})}
                                     placeholder="Email"
                                     className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
                                 />
@@ -127,8 +182,8 @@ const AccountSettingsPage: React.FC = () => {
                                 <input
                                     type="number"
                                     id="phone_number"
-                                    value={phone_number}
-                                    onChange={(e) => setPhoneNumber(e.target.value)}
+                                    value={formData.phone_number}
+                                    onChange={(e) => setFormData({ ...formData, phone_number: e.target.value})}
                                     placeholder="Phone Number"
                                     className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
                                 />
@@ -143,8 +198,8 @@ const AccountSettingsPage: React.FC = () => {
                                 <input
                                     type="text"
                                     id="address"
-                                    value={address}
-                                    onChange={(e) => setAddress(e.target.value)}
+                                    value={formData.address}
+                                    onChange={(e) => setFormData({ ...formData, address: e.target.value})}
                                     placeholder="123 Main Street"
                                     className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
                                 />
@@ -157,8 +212,8 @@ const AccountSettingsPage: React.FC = () => {
                                 <input
                                     type="text"
                                     id="address2"
-                                    value={address2}
-                                    onChange={(e) => setAdress2(e.target.value)}
+                                    value={formData.address2}
+                                    onChange={(e) => setFormData({ ...formData, address2: e.target.value})}
                                     placeholder="Apt, Suite, etc. (optional)"
                                     className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
                                 />
@@ -173,8 +228,8 @@ const AccountSettingsPage: React.FC = () => {
                                 <input
                                     type="dropdown"
                                     id="state"
-                                    value={state}
-                                    onChange={(e) => setState(e.target.value)}
+                                    value={formData.state}
+                                    onChange={(e) => setFormData({ ...formData, state: e.target.value})}
                                     placeholder="State"
                                     className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
                                 />
@@ -187,8 +242,8 @@ const AccountSettingsPage: React.FC = () => {
                                 <input
                                     type="number"
                                     id="zip_code"
-                                    value={zip_code}
-                                    onChange={(e) => setZipCode(e.target.value)}
+                                    value={formData.zip_code}
+                                    onChange={(e) => setFormData({ ...formData, zip_code: e.target.value})}
                                     placeholder="12345"
                                     className="w-full rounded-[1rem] border border-deepRed px-4 py-2 focus:outline-none focus:ring-2 bg-white text-deepRed"
                                 />

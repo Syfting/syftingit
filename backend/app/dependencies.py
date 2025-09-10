@@ -4,10 +4,13 @@ from fastapi import Depends, HTTPException, status, Cookie
 from app.db import get_db
 from sqlalchemy.orm import Session
 from app.models import User
+import secrets
+from app.models import RefreshToken
 
 SECRET_KEY = "your-secret-key"  # load from .env
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # 1 day
+REFRESH_TOKEN_EXPIRE_DAYS = 7
 
 def create_access_token(data: dict):
     to_encode = data.copy()
@@ -36,3 +39,18 @@ def get_current_user(access_token: str = Cookie(None), db: Session = Depends(get
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     
     return user
+
+def create_refresh_token(user_id: int, db: Session):
+    token = secrets.token_urlsafe(32)  # random string
+    expires_at = datetime.utcnow() + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
+
+    refresh_token = RefreshToken(
+        user_id=user_id,
+        token=token,
+        expires_at=expires_at
+    )
+    db.add(refresh_token)
+    db.commit()
+    db.refresh(refresh_token)
+
+    return token
