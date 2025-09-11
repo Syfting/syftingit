@@ -14,7 +14,7 @@ if not SQLALCHEMY_DATABASE_URL:
         "Create a .env file for local development or set it in production."
     )
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_engine(SQLALCHEMY_DATABASE_URL, echo=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
