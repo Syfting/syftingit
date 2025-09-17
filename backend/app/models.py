@@ -35,3 +35,10 @@ class RefreshToken(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     user = relationship("User", back_populates="refresh_tokens")
+
+class EmailSignup(Base):
+    __tablename__ = "email_signups"
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)

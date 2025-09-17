@@ -15,6 +15,15 @@ const signupSchema = z.object({
   last_name: z.string().min(2, "Last Name is required"),
   email: z.string().email("Invalid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
+  confirmPassword: z.string().min(6, "Confirm Password is required"),
+}).superRefine((data, ctx) => {
+  if (data.password !== data.confirmPassword) {
+    ctx.addIssue({
+      path: ["confirmPassword"], // attaches error to confirm_password field
+      message: "Passwords don't match",
+      code: z.ZodIssueCode.custom,
+    });
+  }
 });
 
 // ---------------- Input Types ----------------
@@ -77,11 +86,11 @@ function DynamicForm<T extends FieldValues>({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="text-deepRed">
+    <div className="max-h-[43vh] overflow-y-auto p-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="text-deepRed">
       {serverError && (
         <p className="text-brightRed text-center mb-4">{serverError}</p>
       )}
-
       {fields.map((field) => (
         <div key={String(field.name)} className="mb-4">
           <label className="block font-semibold tracking-wider text-sm pb-[0.5rem]">
@@ -163,6 +172,8 @@ function DynamicForm<T extends FieldValues>({
         </button>
       </div> */}
     </form>
+    </div>
+    
   );
 }
 
@@ -179,6 +190,7 @@ export default function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
     { name: "first_name", label: "First Name", type: "text" },
     { name: "last_name", label: "Last Name", type: "text" },
     ...loginFields,
+    { name: "confirmPassword", label: "Confirm Password", type: "password" },
   ];
 
   return (
