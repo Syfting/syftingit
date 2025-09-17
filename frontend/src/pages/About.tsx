@@ -139,16 +139,12 @@ const About = () => {
         </div>
       </div>
 
-      <div className="relative bg-beige w-full h-[64rem] flex flex-col items-center overflow-hidden">
-        <div className="text-[3rem] font-bold mt-[4rem] text-dark text-center z-30">OUR VALUES
-        </div>
-        
+      <div className="relative bg-beige w-full h-[55rem] flex flex-col items-center overflow-hidden">
         <img
-          src="/assets/about-scalloped-background-with-images.png"
+          src="/assets/about-our-values-with-text.png"
           alt="Our Values"
           className="absolute bottom-0 left-0 w-full object-cover z-20"
         />
-        
       </div>
 
       <div className="-mt-[11rem] relative z-10">

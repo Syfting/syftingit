@@ -4,7 +4,14 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 
-load_dotenv()
+ENV = os.getenv("ENV", "LOCAL").upper()  # default to LOCAL if ENV not set
+
+if ENV == "PROD":
+    load_dotenv(".env.prod")
+    print("Loaded PROD environment variables")
+else:
+    load_dotenv(".env.local")
+    print("Loaded LOCAL environment variables")
 
 # DATABASE_URL must come from environment
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")

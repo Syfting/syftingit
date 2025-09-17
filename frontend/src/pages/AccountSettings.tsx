@@ -8,14 +8,6 @@ import { useUser } from "../contexts/UserContext";
 
 const AccountSettingsPage: React.FC = () => {
     const { currentUserData, setCurrentUserData } = useUser();
-    // const [first_name, setFirstName] = React.useState("");
-    // const [last_name, setLastName] = React.useState("");
-    // const [email, setEmail] = React.useState("");
-    // const [phone_number, setPhoneNumber] = React.useState("");
-    // const [address, setAddress] = React.useState("");
-    // const [address2, setAdress2] = React.useState("");
-    // const [state, setState] = React.useState("");
-    // const [zip_code, setZipCode] = React.useState("");
     const [formData, setFormData] = React.useState({
         first_name: "",
         last_name: "",
@@ -28,23 +20,61 @@ const AccountSettingsPage: React.FC = () => {
       });
     const [loading, setLoading] = React.useState(false);
     const [message, setMessage] = React.useState("");
+    const [errors, setErrors] = React.useState({
+        first_name: "",
+        last_name: "",
+        email: "",
+    });
+
+    const validate = () => {
+        const newErrors: typeof errors = {
+            first_name: "",
+            last_name: "",
+            email: "",
+        };
+        
+        if (!formData.first_name.trim()) newErrors.first_name = "This field is mandatory";
+        if (!formData.last_name.trim()) newErrors.last_name = "This field is mandatory";
+        if (!formData.email.trim()) newErrors.email = "This field is mandatory";
+        
+        setErrors(newErrors);
+
+        // return true if no errors
+        return !Object.values(newErrors).some((error) => error);
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!validate()) return;
+
         setLoading(true);
         setMessage("");
 
-    try {
-        // TODO replace with endpoint
-        await axios.post("/api/account/update", { formData });
-        setMessage("Account updated successfully!");
-        } catch (err) {
-        console.error(err);
-        setMessage("Error updating account");
+        try {
+            const API_URL = import.meta.env.VITE_API_URL;
+            const res = await axios.post(
+                `${API_URL}/api/account/update`,
+                formData,
+                { withCredentials: true }
+            );
+
+            setMessage(res.data.message || "Account updated successfully!");
+            setCurrentUserData(res.data.user);
+        } catch (err: any) {
+            console.error(err);
+            setMessage(err.response?.data?.detail || "Error updating account");
         } finally {
-        setLoading(false);
+            setLoading(false);
         }
     };
+
+    useEffect(() => {
+        if (message) {
+            const timer = setTimeout(() => setMessage(""), 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [message]);
 
     useEffect(() => {
         const getUser = async () => {
@@ -72,7 +102,6 @@ const AccountSettingsPage: React.FC = () => {
                 state: currentUserData.state || "",
                 zip_code: currentUserData.zip_code || "",
             })
-        //   setFirstName(currentUserData.first_name);
         } else {
             setFormData({
                 first_name: "",
@@ -84,7 +113,6 @@ const AccountSettingsPage: React.FC = () => {
                 state: "",
                 zip_code: "",
             })
-        //   setFirstName("");
         }
       }, [currentUserData]);
   
@@ -92,33 +120,33 @@ const AccountSettingsPage: React.FC = () => {
     <div className="bg-white min-h-screen max-w-screen font-sans">
         <TopNav />
         
-        <div className="flex px-[6rem] py-[10rem]">
-            <div className="flex-[1] bg-light h-[35rem] rounded-[1.5rem] font-semibold">
+        <div className="flex px-[6rem] py-[8rem]">
+            <div className="flex-[1] bg-light h-[13rem] rounded-[1.5rem] font-semibold">
                 <div className="mb-[2rem]">
-                    <h2 className="mt-[1rem] ml-[2rem] text-[2rem] text-deepRed">PROFILE</h2>
-                    <hr className="border-deepRed mb-[1rem] w-[14rem] ml-[2rem]" />
-                    <ul className="text-[1.2rem] ml-[2rem] space-y-2">
-                        <li className="cursor-pointer hover:text-brightRed">Manage Profile</li>
-                        <li className="cursor-pointer hover:text-brightRed">Payment Methods</li>
-                        <li className="cursor-pointer hover:text-brightRed">Password Management</li>
+                    <h2 className="mt-[1rem] ml-[1rem] text-[2rem] text-deepRed">PROFILE</h2>
+                    <hr className="border-deepRed mb-[1rem] w-[14rem] ml-[1rem]" />
+                    <ul className="text-[1.2rem] ml-[1rem] space-y-2">
+                        <li className="cursor-not-allowed hover:text-brightRed">Manage Profile</li>
+                        <li className="cursor-not-allowed hover:text-brightRed">Payment Methods</li>
+                        <li className="cursor-not-allowed hover:text-brightRed">Password Management</li>
                     </ul>
                 </div>
-                <div>
-                    <h2 className="mt-[1rem] ml-[2rem] text-[2rem] text-deepRed">STOREFRONT</h2>
-                    <hr className="border-deepRed mb-[1rem] w-[14rem] ml-[2rem]" />
-                    <ul className="text-[1.2rem] ml-[2rem] space-y-2">
-                        <li className="cursor-pointer hover:text-brightRed">Storefront Bio</li>
-                        <li className="cursor-pointer hover:text-brightRed">Menu Items</li>
-                        <li className="cursor-pointer hover:text-brightRed">Current Orders</li>
-                        <li className="cursor-pointer hover:text-brightRed">Availability</li>
-                        <li className="cursor-pointer hover:text-brightRed">Messaging</li>
-                        <li className="cursor-pointer hover:text-brightRed">Past Orders</li>
-                        <li className="cursor-pointer hover:text-brightRed">Reviews</li>
+                {/* <div>
+                    <h2 className="mt-[1rem] ml-[1rem] text-[2rem] text-deepRed">STOREFRONT</h2>
+                    <hr className="border-deepRed mb-[1rem] w-[13rem] ml-[1rem]" />
+                    <ul className="text-[1.2rem] ml-[1rem] space-y-2">
+                        <li className="cursor-not-allowed hover:text-brightRed">Storefront Bio</li>
+                        <li className="cursor-not-allowed hover:text-brightRed">Menu Items</li>
+                        <li className="cursor-not-allowed hover:text-brightRed">Current Orders</li>
+                        <li className="cursor-not-allowed hover:text-brightRed">Availability</li>
+                        <li className="cursor-not-allowed hover:text-brightRed">Messaging</li>
+                        <li className="cursor-not-allowed hover:text-brightRed">Past Orders</li>
+                        <li className="cursor-not-allowed hover:text-brightRed">Reviews</li>
                     </ul>
-                </div>
+                </div> */}
             </div>
 
-            <div className="flex-[1] ml-[5rem] mt-[1.5rem]">
+            <div className="flex-[1] ml-[1.5rem] mt-[1.5rem]">
                 <img
                     src="/assets/profile-picture.png"
                     alt="Profile"
@@ -126,7 +154,7 @@ const AccountSettingsPage: React.FC = () => {
                 />
             </div>
             
-            <div className="flex-[3] mt-[1.5rem]">
+            <div className="flex-[3] mt-[1.5rem] ml-[1rem]">
                 <h1 className="text-[2.5rem] font-bold mb-4 text-dark">PROFILE</h1>
                 <div className="border border-dark rounded-[1rem] p-6 bg-white">
                     <form onSubmit={handleSubmit} className="space-y-4">
@@ -134,6 +162,9 @@ const AccountSettingsPage: React.FC = () => {
                             <div className="flex-1 flex flex-col">
                                 <label className="text-dark mb-1" htmlFor="first_name">
                                 FIRST NAME
+                                {errors.first_name && (
+                                    <span className="text-red-600 text-sm ml-2">{errors.first_name}</span>
+                                )}
                                 </label>
                                 <input
                                     type="text"
@@ -148,6 +179,9 @@ const AccountSettingsPage: React.FC = () => {
                             <div className="flex-1 flex flex-col">
                                 <label className="flex text-dark mb-1" htmlFor="last_name">
                                     LAST NAME
+                                    {errors.last_name && (
+                                        <span className="text-red-600 text-sm ml-2">{errors.last_name}</span>
+                                    )}
                                 </label>
                                 <input
                                     type="text"
@@ -164,6 +198,9 @@ const AccountSettingsPage: React.FC = () => {
                             <div className="flex-1 flex flex-col">
                                 <label className="text-dark mb-1" htmlFor="email">
                                 EMAIL
+                                {errors.email && (
+                                    <span className="text-red-600 text-sm ml-2">{errors.email}</span>
+                                )}
                                 </label>
                                 <input
                                     type="text"
@@ -250,15 +287,20 @@ const AccountSettingsPage: React.FC = () => {
                             </div>
                         </div>
 
-                        <button
-                            type="submit"
-                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                            disabled={loading}
-                        >
-                            {loading ? "Saving..." : "Save Changes"}
-                        </button>
+                        <div className="flex justify-end mt-4">
+                            {message && <p className="text-sm mt-2 text-green-600 mr-[1rem]">{message}</p>}
+                            <button
+                                type="submit"
+                                className={`bg-deepRed text-light px-4 py-2 rounded hover:bg-brightRed ${
+                                    (!formData.first_name && !formData.last_name && !formData.email) ? "opacity-50 cursor-not-allowed" : ""
+                                }`}
+                                disabled={!formData.first_name && !formData.last_name && !formData.email || loading}
+                            >
+                                {loading ? "Saving..." : "Save Changes"}
+                            </button>
+                        </div>
 
-                        {message && <p className="text-sm mt-2 text-green-600">{message}</p>}
+                        
                     </form>
                 </div>
             </div>
