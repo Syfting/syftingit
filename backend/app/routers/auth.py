@@ -23,8 +23,8 @@ def login(request: UserLogin, response: Response, db: Session = Depends(get_db))
         key="access_token",
         value=token,
         httponly=True,
-        secure=False,   # TODO set True in production
-        samesite="lax",
+        secure=True,   # TODO set True in production
+        samesite="none",
         max_age=60 * 60 * 24
     )
 
