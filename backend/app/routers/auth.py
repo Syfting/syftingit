@@ -23,7 +23,9 @@ def login(request: UserLogin, response: Response, db: Session = Depends(get_db))
         key="access_token",
         value=token,
         httponly=True,
-        secure=True,   # TODO set True in production
+        # secure=False, # for local
+        secure=True,   # for prod
+        domain=".syftingit.com", # for prod
         samesite="none",
         max_age=60 * 60 * 24
     )
