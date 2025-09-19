@@ -7,9 +7,27 @@ from app.utils import hash_password, verify_password
 from app.dependencies import create_access_token, get_current_user
 from fastapi.responses import JSONResponse
 import logging
+import os
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
+
+def set_auth_cookie(response: Response, token: str):
+    """
+    Set the authentication cookie with environment-aware settings.
+    """
+    is_prod = os.getenv("ENV") == "production"
+
+    response.set_cookie(
+        key="access_token",
+        value=token,
+        httponly=True,
+        secure=is_prod,
+        domain=".syftingit.com" if is_prod else None,
+        samesite="none" if is_prod else "lax",
+        max_age=60 * 60 * 24,
+        path="/"
+    )
 
 @router.post("/login")
 def login(request: UserLogin, response: Response, db: Session = Depends(get_db)):
@@ -19,16 +37,7 @@ def login(request: UserLogin, response: Response, db: Session = Depends(get_db))
 
     token = create_access_token({"sub": user.email})
 
-    response.set_cookie(
-        key="access_token",
-        value=token,
-        httponly=True,
-        # secure=False, # for local
-        secure=True,   # for prod
-        domain=".syftingit.com", # for prod
-        samesite="none",
-        max_age=60 * 60 * 24
-    )
+    set_auth_cookie(response, token)
 
     return {"message": "Logged in successfully"}
 
@@ -61,6 +70,21 @@ def get_my_profile(current_user: User = Depends(get_current_user)):
         "zip_code": current_user.zip_code,
     }
 
+def delete_auth_cookies(response: JSONResponse):
+    is_prod = os.getenv("ENV") == "production"
+
+    cookie_args = {
+        "httponly": True,
+        "secure": is_prod,
+        "domain": ".syftingit.com" if is_prod else None,
+        "samesite": "none" if is_prod else "lax",
+        "path": "/",
+    }
+
+    response.delete_cookie("access_token", **cookie_args)
+    response.delete_cookie("refresh_token", **cookie_args)
+
+
 @router.post("/logout")
 def logout(
     db: Session = Depends(get_db),
@@ -70,7 +94,7 @@ def logout(
     db.commit()
 
     response = JSONResponse({"message": "Logged out successfully"})
-    response.delete_cookie("access_token")
-    response.delete_cookie("refresh_token")
+    delete_auth_cookies(response)
+
     logger.info(f"User {current_user.id} logged out, cookies cleared")
     return response
