@@ -35,7 +35,7 @@ const CityTabs = () => (
     <p className="mt-2 text-dark text-sm font-semibold text-center">Chicago</p>
   </div>
 
-  <div className="flex flex-col items-center w-52 group">
+  {/* <div className="flex flex-col items-center w-52 group">
     <div className="relative h-44 w-52">
       <img
         src="/assets/hp-cle-bw.png"
@@ -65,7 +65,7 @@ const CityTabs = () => (
       />
     </div>
     <p className="mt-2 text-dark text-sm font-semibold text-center">Cincinnati</p>
-  </div>
+  </div> */}
 </div>
     <hr className="h-px w-3/5 m-auto border-dark "></hr>
 </div>
