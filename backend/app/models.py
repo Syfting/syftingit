@@ -1,5 +1,4 @@
-from xmlrpc.client import Boolean
-from sqlalchemy import Column, Integer, String, DateTime, func, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, func, ForeignKey, Boolean
 from app.db import Base
 from datetime import datetime
 from sqlalchemy.orm import relationship
