@@ -14,14 +14,17 @@ AUDIENCE_ID = os.getenv("MAILCHIMP_AUDIENCE_ID")
 ENV = os.getenv("ENV", "local")  # default to local if not set
 
 def push_to_mailchimp(email: str) -> bool:
-    """Push a single email to Mailchimp. Returns True if successful or already exists."""
     url = f"https://{MAILCHIMP_DC}.api.mailchimp.com/3.0/lists/{AUDIENCE_ID}/members"
     data = {"email_address": email, "status": "subscribed"}
-    resp = requests.post(url, auth=("anystring", MAILCHIMP_API_KEY), json=data)
-    if resp.status_code in [200, 204] or (resp.status_code == 400 and "Member Exists" in resp.text):
-        return True
-    print("Mailchimp error for", email, ":", resp.json())
+    try:
+        resp = requests.post(url, auth=("anystring", MAILCHIMP_API_KEY), json=data)
+        print(f"Mailchimp POST to {url} with {data}, status: {resp.status_code}, response: {resp.text}")
+        if resp.status_code in [200, 204] or (resp.status_code == 400 and "Member Exists" in resp.text):
+            return True
+    except Exception as e:
+        print("Mailchimp request failed:", e)
     return False
+
 
 @router.post("/email-signup")
 def email_signup(payload: EmailSignupCreate, db: Session = Depends(get_db)):
