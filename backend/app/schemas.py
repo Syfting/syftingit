@@ -20,3 +20,6 @@ class UserUpdate(BaseModel):
     address2: Optional[str] = None
     state: Optional[str] = None
     zip_code: Optional[str] = None
+
+class EmailSignupCreate(BaseModel):
+    email: EmailStr

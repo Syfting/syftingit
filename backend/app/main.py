@@ -6,7 +6,7 @@ from .routers import auth, email_signup, account
 # ---------------- FastAPI app ----------------
 app = FastAPI(title="Syfting backend")
 app.include_router(auth.router, prefix="/auth")
-app.include_router(email_signup.router, prefix="/email-signup", tags=["newsletter"])
+app.include_router(email_signup.router, tags=["newsletter"])
 app.include_router(account.router, prefix="/api/account", tags=["account"])
 
 # ---------------- CORS config ----------------
