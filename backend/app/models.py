@@ -1,3 +1,4 @@
+from xmlrpc.client import Boolean
 from sqlalchemy import Column, Integer, String, DateTime, func, ForeignKey
 from app.db import Base
 from datetime import datetime
@@ -42,3 +43,4 @@ class EmailSignup(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
+    synced_to_mailchimp = Column(Boolean, default=False, nullable=False)
