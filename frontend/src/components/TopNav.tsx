@@ -109,8 +109,11 @@ const TopNav = () => {
 
           {!isLoggedIn ? (
             <span
-              onClick={() => setShowLogin(true)}
-              className="hover:text-brightRed cursor-pointer"
+              // todo uncomment when login is ready
+              // onClick={() => setShowLogin(true)}
+              // className="hover:text-brightRed cursor-pointer"
+              className="hover:text-brightRed cursor-not-allowed"
+              title="Login temporarily disabled"
             >
               Login
             </span>
@@ -163,8 +166,8 @@ const TopNav = () => {
             </button>
             <LoginForm
               onSuccess={() => {
-                localStorage.setItem("token", "user_token"); // or your token
-                setIsLoggedIn(true); // triggers re-render → shows Account immediately
+                localStorage.setItem("token", "user_token");
+                setIsLoggedIn(true);
                 setShowLogin(false);
               }}
             />

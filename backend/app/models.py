@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, func, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, func, ForeignKey, Boolean
 from app.db import Base
 from datetime import datetime
 from sqlalchemy.orm import relationship
@@ -42,3 +42,4 @@ class EmailSignup(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
+    synced_to_mailchimp = Column(Boolean, default=False, nullable=False)
