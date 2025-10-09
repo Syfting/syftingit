@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const PASSWORD = "syftingtrial1";
+const PASSWORD = "sweettreat";
 
 const PasswordPage: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
   const [input, setInput] = useState("");
@@ -11,7 +11,7 @@ const PasswordPage: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (input === PASSWORD) {
-      onSuccess(); // Let App.tsx know we're authenticated
+      onSuccess();
       navigate("/home");
     } else {
       setError("Incorrect password.");
