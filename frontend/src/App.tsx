@@ -7,6 +7,7 @@ import AccountSettingsPage from "./pages/AccountSettings.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
 // import OrderPageMockup from "./pages/OrderPageMockup.tsx";
 import PasswordPage from "./pages/PasswordPage.tsx";
+import LaunchHomepage from "./pages/LaunchHomepage.tsx";
 
 const ProtectedRoute = ({ authenticated, children }: { authenticated: boolean; children: React.ReactNode }) => {
   return authenticated ? <>{children}</> : <Navigate to="/" replace />;
@@ -28,8 +29,10 @@ const App: React.FC = () => {
         <Route path="/bakerprofilemockup" element={<BakerProfileMockup />} />
         <Route path="/orderpagemockup" element={<OrderPageMockup />} /> */}
 
+        <Route path="/" element={<LaunchHomepage />} />
+
         {/* Password route */}
-        <Route path="/" element={<PasswordPage onSuccess={() => setAuthenticated(true)} />} />
+        <Route path="/PasswordPage" element={<PasswordPage onSuccess={() => setAuthenticated(true)} />} />
 
         {/* Protected Routes */}
         <Route

@@ -41,5 +41,8 @@ class EmailSignup(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
+    first_name = Column(String)
+    last_name = Column(String)
+    role = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow)
     synced_to_mailchimp = Column(Boolean, default=False, nullable=False)

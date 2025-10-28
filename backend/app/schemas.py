@@ -23,3 +23,6 @@ class UserUpdate(BaseModel):
 
 class EmailSignupCreate(BaseModel):
     email: EmailStr
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    role: Optional[str] = None
