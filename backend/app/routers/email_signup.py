@@ -1,7 +1,6 @@
 import os
 import requests
 import os
-import requests
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db import get_db
@@ -17,9 +16,17 @@ MAILCHIMP_DC = os.getenv("MAILCHIMP_SERVER_PREFIX")
 AUDIENCE_ID = os.getenv("MAILCHIMP_AUDIENCE_ID")
 ENV = os.getenv("ENV", "local")  # default to local if not set
 
-def push_to_mailchimp(email: str) -> bool:
+def push_to_mailchimp(signup: EmailSignup) -> bool:
     url = f"https://{MAILCHIMP_DC}.api.mailchimp.com/3.0/lists/{AUDIENCE_ID}/members"
-    data = {"email_address": email, "status": "subscribed"}
+    data = {
+        "email_address": signup.email,
+        "status": "subscribed",
+        "merge_fields": {
+            "FNAME": signup.first_name or "",
+            "LNAME": signup.last_name or "",
+            "ROLE": signup.role or "",
+        },
+        }
     try:
         resp = requests.post(url, auth=("anystring", MAILCHIMP_API_KEY), json=data)
         print(f"Mailchimp POST to {url} with {data}, status: {resp.status_code}, response: {resp.text}")
@@ -33,12 +40,12 @@ def push_to_mailchimp(email: str) -> bool:
 @router.post("/email-signup")
 def email_signup(payload: EmailSignupCreate, db: Session = Depends(get_db)):
     # Save to DB
-    signup = EmailSignup(email=payload.email)
-    db.add(signup)
-    try:
-def email_signup(payload: EmailSignupCreate, db: Session = Depends(get_db)):
-    # Save to DB
-    signup = EmailSignup(email=payload.email)
+    signup = EmailSignup(
+        email=payload.email,
+        first_name=payload.first_name,
+        last_name=payload.last_name,
+        role=payload.role,
+    )
     db.add(signup)
     try:
         db.commit()
@@ -51,13 +58,15 @@ def email_signup(payload: EmailSignupCreate, db: Session = Depends(get_db)):
 
     # Only push to Mailchimp in production
     if ENV == "prod":
-        if push_to_mailchimp(payload.email):
+        if push_to_mailchimp(signup):
             signup.synced_to_mailchimp = True
             db.commit()
+        else:
+            print(f"Failed to push {signup.email} to Mailchimp")
     else:
-        print(f"[Local] Email {payload.email} saved locally. Skipping Mailchimp.")
+        print(f"[Local] Email {signup.email} saved locally. Skipping Mailchimp.")
 
-    return {"message": "Email signup saved"}
+    return {"message": "Signup saved successfully", "data": payload.model_dump()}
 
 def sync_unsent_emails(db: Session):
     """Sync all unsynced emails to Mailchimp (only in prod)."""
@@ -70,7 +79,7 @@ def sync_unsent_emails(db: Session):
         if push_to_mailchimp(signup.email):
             signup.synced_to_mailchimp = True
     db.commit()
-        raise HTTPException(status_code=400, detail="Email already exists")
+    raise HTTPException(status_code=400, detail="Email already exists")
 
     # Only push to Mailchimp in production
     if ENV == "prod":
