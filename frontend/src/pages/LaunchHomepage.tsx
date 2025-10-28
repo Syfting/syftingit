@@ -57,7 +57,7 @@ const LaunchHomepage: React.FC = () => {
             <img
             src="/assets/3-badge1.png"
             alt="Syfting Badge Logo"
-            className="h-[40rem] w-auto"
+            className="h-[30rem] w-auto"
             />
         </div>
         <div className="flex-1 mr-[8rem]">
@@ -65,13 +65,13 @@ const LaunchHomepage: React.FC = () => {
                 <img
                 src="/assets/mainlogo-brightRed.png"
                 alt="Syfting Main Logo Bright Red"
-                className="h-auto w-[32rem] object-center"
+                className="h-auto w-[27rem] object-center"
                 />
             </div>
             <div>
-                <h1 className="text-[2.3rem] text-center">We're launching soon...</h1>
-                <h1 className="text-[2.3rem] text-center">Join the waitlist that's baking</h1>
-                <h1 className="text-[2.3rem] text-center">the future.</h1>
+                <h1 className="text-[1.8rem] text-center">We're launching soon...</h1>
+                <h1 className="text-[1.8rem] text-center">Join the waitlist that's baking</h1>
+                <h1 className="text-[1.8rem] text-center">the future.</h1>
             </div>
             <div>
                 <form onSubmit={handleSubmit} className="flex flex-col justify-center mt-6">
@@ -84,7 +84,7 @@ const LaunchHomepage: React.FC = () => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                className="w-full p-2 text-light text-[1.5rem] uppercase border-b border-light bg-transparent placeholder:text-light focus:outline-none"
+                                className="w-full p-2 text-light text-[1.3rem] uppercase border-b border-light bg-transparent placeholder:text-light focus:outline-none"
                             />
                         </div>
                     </div>
@@ -98,7 +98,7 @@ const LaunchHomepage: React.FC = () => {
                                 value={formData.first_name}
                                 onChange={handleChange}
                                 required
-                                className="w-full p-2 text-light text-[1.5rem] uppercase border-b border-light bg-transparent placeholder:text-light focus:outline-none"
+                                className="w-full p-2 text-light text-[1.3rem] uppercase border-b border-light bg-transparent placeholder:text-light focus:outline-none"
                             />
                         </div>
                         <div className="flex-1 flex flex-col">
@@ -109,7 +109,7 @@ const LaunchHomepage: React.FC = () => {
                                 value={formData.last_name}
                                 onChange={handleChange}
                                 required
-                                className="w-full p-2 text-light text-[1.5rem] uppercase border-b border-light bg-transparent placeholder:text-light focus:outline-none"
+                                className="w-full p-2 text-light text-[1.3rem] uppercase border-b border-light bg-transparent placeholder:text-light focus:outline-none"
                             />
                         </div>
                     </div>
@@ -120,7 +120,7 @@ const LaunchHomepage: React.FC = () => {
                             key={role}
                             type="button"
                             onClick={() => setFormData({ ...formData, role })}
-                            className={`flex-1 text-[1.5rem] px-4 py-4 rounded-full border border-light transition-colors duration-200
+                            className={`flex-1 text-[1.3rem] px-4 py-2 rounded-full border border-light transition-colors duration-200
                                 ${
                                     formData.role === role
                                     ? "bg-light text-deepRed border-deepRed"
@@ -141,7 +141,7 @@ const LaunchHomepage: React.FC = () => {
                                 ${
                                 allFilled && !isSubmitting
                                     ? "bg-brightRed hover:opacity-90 cursor-pointer"
-                                    : "bg-gray-400 cursor-not-allowed"
+                                    : "bg-brightRed cursor-not-allowed"
                                 }`}
                             >
                             {isSubmitting ? "Submitting..." : "Get Syfting!"}
