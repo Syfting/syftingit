@@ -62,6 +62,7 @@ const LaunchHomepage: React.FC = () => {
             src="/assets/3-badge1.png"
             alt="Syfting Badge Logo"
             className="h-[30rem] w-auto"
+            className="h-[30rem] w-auto"
             />
         </div>
 
@@ -73,14 +74,10 @@ const LaunchHomepage: React.FC = () => {
                 <img
                 src="/assets/mainlogo-brightRed.png"
                 alt="Syfting Main Logo Bright Red"
-<<<<<<< HEAD
                 className="
                     h-auto w-[15rem] object-center
                     md:w-[27rem]
                 "
-=======
-                className="h-auto w-[27rem] object-center"
->>>>>>> origin/master
                 />
             </div>
 
@@ -96,7 +93,6 @@ const LaunchHomepage: React.FC = () => {
             </div>
 
             <div>
-<<<<<<< HEAD
                 <h1 className="
                     text-[1.2rem] text-center
                     md:text-[1.8rem]
@@ -109,11 +105,6 @@ const LaunchHomepage: React.FC = () => {
                     text-[1.2rem] text-center
                     md:text-[1.8rem]
                 ">the future.</h1>
-=======
-                <h1 className="text-[1.8rem] text-center">We're launching soon...</h1>
-                <h1 className="text-[1.8rem] text-center">Join the waitlist that's baking</h1>
-                <h1 className="text-[1.8rem] text-center">the future.</h1>
->>>>>>> origin/master
             </div>
             <div>
                 <form onSubmit={handleSubmit} className="flex flex-col justify-center mt-6">
@@ -126,14 +117,10 @@ const LaunchHomepage: React.FC = () => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-<<<<<<< HEAD
                                 className="
                                     w-full p-2 text-light text-[0.8rem] uppercase border-b border-light bg-transparent placeholder:text-light focus:outline-none
                                     md:text-[1.3rem]
                                 "
-=======
-                                className="w-full p-2 text-light text-[1.3rem] uppercase border-b border-light bg-transparent placeholder:text-light focus:outline-none"
->>>>>>> origin/master
                             />
                         </div>
                     </div>
@@ -150,14 +137,10 @@ const LaunchHomepage: React.FC = () => {
                                 value={formData.first_name}
                                 onChange={handleChange}
                                 required
-<<<<<<< HEAD
                                 className="
                                     w-full p-2 text-light text-[0.8rem] uppercase border-b border-light bg-transparent placeholder:text-light focus:outline-none
                                     md:text-[1.3rem]
                                 "
-=======
-                                className="w-full p-2 text-light text-[1.3rem] uppercase border-b border-light bg-transparent placeholder:text-light focus:outline-none"
->>>>>>> origin/master
                             />
                         </div>
                         <div className="flex-1 flex flex-col">
@@ -168,14 +151,10 @@ const LaunchHomepage: React.FC = () => {
                                 value={formData.last_name}
                                 onChange={handleChange}
                                 required
-<<<<<<< HEAD
                                 className="
                                     w-full p-2 text-light text-[0.8rem] uppercase border-b border-light bg-transparent placeholder:text-light focus:outline-none
                                     md:text-[1.3rem]
                                 "
-=======
-                                className="w-full p-2 text-light text-[1.3rem] uppercase border-b border-light bg-transparent placeholder:text-light focus:outline-none"
->>>>>>> origin/master
                             />
                         </div>
                     </div>
@@ -189,14 +168,10 @@ const LaunchHomepage: React.FC = () => {
                             key={role}
                             type="button"
                             onClick={() => setFormData({ ...formData, role })}
-<<<<<<< HEAD
                             // padding makes badge logo appear/disappear
                             className={`
                                 flex-1 text-[0.7rem] py-2 rounded-full border border-light transition-colors duration-200
                                 md:text-[1.3rem] md:px-4
-=======
-                            className={`flex-1 text-[1.3rem] px-4 py-2 rounded-full border border-light transition-colors duration-200
->>>>>>> origin/master
                                 ${
                                     formData.role === role
                                     ? "bg-light text-deepRed border-deepRed"
