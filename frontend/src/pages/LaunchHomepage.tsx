@@ -58,23 +58,12 @@ const LaunchHomepage: React.FC = () => {
                 hidden md:block
                 flex-1 ml-[8rem]
             ">
-        {/* show only on large screens */}
-        <div className="
-                hidden md:block
-                flex-1 ml-[8rem]
-            ">
             <img
             src="/assets/3-badge1.png"
             alt="Syfting Badge Logo"
             className="h-[30rem] w-auto"
-            className="h-[30rem] w-auto"
             />
         </div>
-
-        <div className="
-                flex-1 mr-[2rem] ml-[2rem]
-                md:mr-[8rem]
-            ">
 
         <div className="
                 flex-1 mr-[2rem] ml-[2rem]
@@ -140,10 +129,6 @@ const LaunchHomepage: React.FC = () => {
                             flex gap-[0.7rem] mb-[1.5rem]
                             md:gap-[2rem]
                         ">
-                    <div className="
-                            flex gap-[0.7rem] mb-[1.5rem]
-                            md:gap-[2rem]
-                        ">
                         <div className="flex-1 flex flex-col">
                              <input
                                 type="text"
@@ -178,10 +163,6 @@ const LaunchHomepage: React.FC = () => {
                             flex gap-[0.4rem] 
                             md:mt-8 md:gap-[1rem]
                         ">
-                    <div className="
-                            flex gap-[0.4rem] 
-                            md:mt-8 md:gap-[1rem]
-                        ">
                         {roles.map((role) => (
                             <button
                             key={role}
@@ -208,17 +189,15 @@ const LaunchHomepage: React.FC = () => {
                             type="submit"
                             disabled={!allFilled || isSubmitting}
                             className={`
-                                w-auto text-beige text-[1rem] px-6 py-2 mt-[2rem] rounded-full transition-colors duration-200
-                                md:text-[1.5rem] md:px-8 md:py-4
-                            className={`
-                                w-auto text-beige text-[1rem] px-6 py-2 mt-[2rem] rounded-full transition-colors duration-200
-                                md:text-[1.5rem] md:px-8 md:py-4
-                                ${
+                            w-auto text-beige text-[1rem] px-6 py-2 mt-[2rem] rounded-full transition-colors duration-200
+                            md:text-[1.5rem] md:px-8 md:py-4
+                            ${
                                 allFilled && !isSubmitting
-                                    ? "bg-brightRed hover:opacity-90 cursor-pointer"
-                                    : "bg-brightRed cursor-not-allowed"
-                                }`}
-                            >
+                                ? "bg-brightRed hover:opacity-90 cursor-pointer"
+                                : "bg-brightRed cursor-not-allowed"
+                            }
+                            `}
+                        >
                             {isSubmitting ? "Submitting..." : "Get Syfting!"}
                         </button>
                     </div>
