@@ -1,13 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .db import Base, engine
-from .routers import auth, email_signup, account
+from .routers import auth, email_signup, account, storefront
 
 # ---------------- FastAPI app ----------------
 app = FastAPI(title="Syfting backend")
 app.include_router(auth.router, prefix="/auth")
 app.include_router(email_signup.router, tags=["newsletter"])
 app.include_router(account.router, prefix="/api/account", tags=["account"])
+app.include_router(storefront.router, prefix="/storefront", tags=["storefront"])
 
 # ---------------- CORS config ----------------
 origins = [

@@ -75,7 +75,7 @@ const PopupModal: React.FC<EmailPopup> = ({ onClose }) => {
         >
           <input
             type="email"
-            placeholder="ILOVESYFTING@EMAIL.COM"
+            placeholder="ILOVE@SYFTINGIT.COM"
             className="w-full sm:w-2/3 p-2 text-dark uppercase border-b border-dark bg-transparent placeholder:text-dark focus:outline-none"
             value={email}
             onChange={(e) => setEmail(e.target.value)}

@@ -25,7 +25,6 @@ env/
 *.sqlite3
 *.db
 *.sqlite
-*.sql
 *.backup
 dump*.*
 
