@@ -46,3 +46,24 @@ class EmailSignup(Base):
     role = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow)
     synced_to_mailchimp = Column(Boolean, default=False, nullable=False)
+
+class Storefront(Base):
+    __tablename__ = "storefronts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), unique=True)
+    bio = Column(String, nullable=False)
+    delivery = Column(Boolean, default=False, nullable=False)
+    pickup = Column(Boolean, default=False, nullable=False)
+    delivery_range = Column(Integer, default=0)
+    pickup_address = Column(String, nullable=False)
+    pickup_address_2 = Column(String, default="")
+    state = Column(String, nullable=False)
+    zip_code = Column(String, nullable=False)
+    same_as_user_address = Column(Boolean, default=False, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
+
+    user = relationship("User", backref="storefront")

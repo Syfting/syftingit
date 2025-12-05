@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import TopNav from "../components/TopNav";
 import axios from "axios";
 import EmailSignup from "../components/EmailSignup";
+import CreateStorefront from "../components/CreateStorefront";
 import Footer from "../components/Footer";
 import { useEffect } from "react";
 import { useUser } from "../contexts/UserContext";
 
 const AccountSettingsPage: React.FC = () => {
     const { currentUserData, setCurrentUserData } = useUser();
+    const [showCreateStorefront, setShowCreateStorefront] = useState(false);
+    const [storefront, setStorefront] = useState<any>(null);
     const [formData, setFormData] = React.useState({
         first_name: "",
         last_name: "",
@@ -26,6 +29,24 @@ const AccountSettingsPage: React.FC = () => {
         email: "",
     });
 
+    useEffect(() => {
+        const fetchStorefront = async () => {
+            const API_URL = import.meta.env.VITE_API_URL;
+            try {
+            const res = await axios.get(`${API_URL}/storefront`, { withCredentials: true });
+            setStorefront(res.data); // will be null if no storefront
+            setShowCreateStorefront(res.data ? true : false);
+            } catch (err: any) {
+            if (err.response?.status === 401) {
+                console.error("Not authenticated");
+            } else {
+                console.error(err);
+            }
+            }
+        };
+        fetchStorefront();
+    }, []);
+
     const validate = () => {
         const newErrors: typeof errors = {
             first_name: "",
@@ -38,8 +59,6 @@ const AccountSettingsPage: React.FC = () => {
         if (!formData.email.trim()) newErrors.email = "This field is mandatory";
         
         setErrors(newErrors);
-
-        // return true if no errors
         return !Object.values(newErrors).some((error) => error);
     };
 
@@ -154,7 +173,10 @@ const AccountSettingsPage: React.FC = () => {
                 />
             </div>
             
-            <div className="flex-[3] mt-[1.5rem] ml-[1rem]">
+            <div className="flex-[3]">
+                <div className="mt-[1.5rem] ml-[1rem]">
+
+                {/* PROFILE SECTION */}
                 <h1 className="text-[2.5rem] font-bold mb-4 text-dark">PROFILE</h1>
                 <div className="border border-dark rounded-[1rem] p-6 bg-white">
                     <form onSubmit={handleSubmit} className="space-y-4">
@@ -259,7 +281,7 @@ const AccountSettingsPage: React.FC = () => {
 
                         <div className="flex gap-[1rem]">
                             <div className="flex-1 flex flex-col">
-                                <label className="text-dark mb-1" htmlFor="state">
+                                <label className="text-dark mb-1" htmlFor="fstate">
                                 STATE
                                 </label>
                                 <input
@@ -296,7 +318,7 @@ const AccountSettingsPage: React.FC = () => {
                                 }`}
                                 disabled={!formData.first_name && !formData.last_name && !formData.email || loading}
                             >
-                                {loading ? "Saving..." : "Save Changes"}
+                                {loading ? "Saving..." : "Save"}
                             </button>
                         </div>
 
@@ -304,7 +326,29 @@ const AccountSettingsPage: React.FC = () => {
                     </form>
                 </div>
             </div>
+
+            {/* STOREFRONT SECTION */}
+            <div className="mt-[1.5rem] ml-[1rem]">
+                <h1 className="text-[2.5rem] font-bold mb-4 text-dark">STOREFRONT</h1>
+                <div className="mt-4">
+                    {!showCreateStorefront && !storefront ? (
+                    <button
+                        onClick={() => setShowCreateStorefront(true)}
+                        className="bg-deepRed text-light px-6 py-3 rounded hover:bg-red-600"
+                    >
+                    Set up storefront
+                    </button>
+                    ) : (
+                    <CreateStorefront
+                        initialData={storefront || undefined}
+                        onCancel={storefront ? undefined : () => setShowCreateStorefront(false)}
+                    />
+                    )}
+                </div>
+            </div>
         </div>
+            
+    </div>
 
         <EmailSignup />
         <Footer />

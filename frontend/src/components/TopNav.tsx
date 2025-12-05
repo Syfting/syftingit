@@ -110,10 +110,10 @@ const TopNav = () => {
           {!isLoggedIn ? (
             <span
               // todo uncomment when login is ready
-              // onClick={() => setShowLogin(true)}
-              // className="hover:text-brightRed cursor-pointer"
-              className="hover:text-brightRed cursor-not-allowed"
-              title="Login temporarily disabled"
+              onClick={() => setShowLogin(true)}
+              className="hover:text-brightRed cursor-pointer"
+              // className="hover:text-brightRed cursor-not-allowed"
+              // title="Login temporarily disabled"
             >
               Login
             </span>
